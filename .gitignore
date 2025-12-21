@@ -1,0 +1,13 @@
+node_modules/
+dist/
+*.log
+.env
+.vscode/
+.DS_Store
+.idea/
+.claude
+.token-counter/
+CLAUDE.md
+
+# Auto Claude data directory
+.auto-claude/

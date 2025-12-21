@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="refresh-btn" class="refresh-btn">
+      <div class="spinner"></div>
+      <div class="pulse"></div>
+    </div>
+
+    <div id="error-message" class="error-message hidden">
+      <span class="error-text">No valid token found</span>
+    </div>
+
+    <div id="stats-container" class="stats-container">
+      <div class="stat">
+        <span class="label">5h</span>
+        <span id="five-hour" class="value green">--%</span>
+        <span id="five-hour-reset" class="reset"></span>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="stat">
+        <span class="label">7d</span>
+        <span id="seven-day" class="value green">--%</span>
+        <span id="seven-day-reset" class="reset"></span>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="stat">
+        <span class="label">7d Sonnet</span>
+        <span id="seven-day-sonnet" class="value green">--%</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

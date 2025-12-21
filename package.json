@@ -1,0 +1,69 @@
+{
+  "name": "claude-code-widget",
+  "version": "0.0.1",
+  "description": "A floating widget for Claude Code",
+  "type": "module",
+  "main": "src/main/app/index.js",
+  "scripts": {
+    "start": "electron .",
+    "lint": "eslint src/",
+    "build": "eslint src/ && electron-builder",
+    "build:win": "eslint src/ && electron-builder --win",
+    "build:linux": "eslint src/ && electron-builder --linux",
+    "release": "eslint src/ && electron-builder --publish always"
+  },
+  "author": "vanhemsj",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vanhemsj/claude-code-widget.git"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^24.13.3",
+    "eslint": "^9.39.2"
+  },
+  "build": {
+    "appId": "com.claude.widget",
+    "productName": "Claude Code Widget",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.ico",
+        "to": "icon.ico"
+      },
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "maintainer": "vanhemsj"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "vanhemsj",
+      "repo": "claude-code-widget"
+    }
+  },
+  "dependencies": {
+    "electron-store": "^11.0.2",
+    "electron-updater": "^6.6.2"
+  }
+}
