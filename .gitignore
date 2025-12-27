@@ -11,3 +11,4 @@ CLAUDE.md
 
 # Auto Claude data directory
 .auto-claude/
+.claude_settings.json

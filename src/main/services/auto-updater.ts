@@ -1,28 +1,28 @@
-import { app, dialog } from 'electron';
-import electronUpdater from 'electron-updater';
+import { app, dialog } from 'electron'
+import electronUpdater from 'electron-updater'
 
-const { autoUpdater } = electronUpdater;
-let updateAvailable = false;
-let updateCheckInterval = null;
-const UPDATE_CHECK_INTERVAL = 60 * 60 * 1000;
+const { autoUpdater } = electronUpdater
+let updateAvailable = false
+let updateCheckInterval: ReturnType<typeof setInterval> | null = null
+const UPDATE_CHECK_INTERVAL = 60 * 60 * 1000
 
-export async function init() {
+export async function init(): Promise<void> {
   if (!app.isPackaged) {
-    console.log('Auto-updater disabled in development mode');
-    return;
+    console.log('Auto-updater disabled in development mode')
+    return
   }
 
-  autoUpdater.autoDownload = true;
-  autoUpdater.autoInstallOnAppQuit = true;
+  autoUpdater.autoDownload = true
+  autoUpdater.autoInstallOnAppQuit = true
 
   autoUpdater.on('update-available', (info) => {
-    console.log('Update available:', info.version);
-    updateAvailable = true;
-  });
+    console.log('Update available:', info.version)
+    updateAvailable = true
+  })
 
   autoUpdater.on('error', (err) => {
-    console.error('Auto-updater error:', err);
-  });
+    console.error('Auto-updater error:', err)
+  })
 
   autoUpdater.on('update-downloaded', (info) => {
     dialog.showMessageBox({
@@ -34,16 +34,16 @@ export async function init() {
       defaultId: 0
     }).then((result) => {
       if (result.response === 0) {
-        autoUpdater.quitAndInstall(false, true);
+        autoUpdater.quitAndInstall(false, true)
       }
-    });
-  });
+    })
+  })
 
-  checkForUpdates();
-  updateCheckInterval = setInterval(checkForUpdates, UPDATE_CHECK_INTERVAL);
+  checkForUpdates()
+  updateCheckInterval = setInterval(checkForUpdates, UPDATE_CHECK_INTERVAL)
 }
 
-export function checkForUpdates(showNoUpdateDialog = false) {
+export function checkForUpdates(showNoUpdateDialog = false): Promise<unknown> | null {
   if (!app.isPackaged) {
     if (showNoUpdateDialog) {
       dialog.showMessageBox({
@@ -52,9 +52,9 @@ export function checkForUpdates(showNoUpdateDialog = false) {
         message: `Current version: ${app.getVersion()}`,
         detail: 'Update check disabled in development mode.',
         buttons: ['OK']
-      });
+      })
     }
-    return Promise.resolve(null);
+    return Promise.resolve(null)
   }
 
   if (showNoUpdateDialog) {
@@ -66,32 +66,32 @@ export function checkForUpdates(showNoUpdateDialog = false) {
           message: `Current version: ${app.getVersion()}`,
           detail: 'You are using the latest version.',
           buttons: ['OK']
-        });
+        })
       }
-      return result;
-    }).catch((err) => {
+      return result
+    }).catch((err: Error) => {
       dialog.showMessageBox({
         type: 'error',
         title: 'Error',
         message: 'Unable to check for updates.',
         detail: err.message,
         buttons: ['OK']
-      });
-    });
+      })
+    })
   }
 
-  return autoUpdater.checkForUpdatesAndNotify().catch((err) => {
-    console.error('Update check failed:', err);
-  });
+  return autoUpdater.checkForUpdatesAndNotify().catch((err: Error) => {
+    console.error('Update check failed:', err)
+  })
 }
 
-export function getVersion() {
-  return app.getVersion();
+export function getVersion(): string {
+  return app.getVersion()
 }
 
-export function cleanup() {
+export function cleanup(): void {
   if (updateCheckInterval) {
-    clearInterval(updateCheckInterval);
-    updateCheckInterval = null;
+    clearInterval(updateCheckInterval)
+    updateCheckInterval = null
   }
 }

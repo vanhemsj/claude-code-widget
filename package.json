@@ -1,16 +1,16 @@
 {
   "name": "claude-code-widget",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A floating widget for Claude Code",
   "type": "module",
-  "main": "src/main/app/index.js",
+  "main": "dist/main/index.js",
   "scripts": {
-    "start": "electron .",
-    "lint": "eslint src/",
-    "build": "eslint src/ && electron-builder",
-    "build:win": "eslint src/ && electron-builder --win",
-    "build:linux": "eslint src/ && electron-builder --linux",
-    "release": "eslint src/ && electron-builder --publish always"
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "build:win": "electron-vite build && electron-builder --win",
+    "build:linux": "electron-vite build && electron-builder --linux",
+    "release": "electron-vite build && electron-builder --publish always"
   },
   "author": "vanhemsj",
   "license": "MIT",
@@ -19,15 +19,22 @@
     "url": "https://github.com/vanhemsj/claude-code-widget.git"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.4.1",
     "electron": "^39.2.7",
     "electron-builder": "^24.13.3",
-    "eslint": "^9.39.2"
+    "electron-vite": "^3.1.0",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
   },
   "build": {
     "appId": "com.claude.widget",
     "productName": "Claude Code Widget",
     "files": [
-      "src/**/*",
+      "dist/**/*",
       "package.json"
     ],
     "extraResources": [
@@ -63,7 +70,15 @@
     }
   },
   "dependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "electron-store": "^11.0.2",
-    "electron-updater": "^6.6.2"
+    "electron-updater": "^6.6.2",
+    "lucide-react": "^0.562.0",
+    "motion": "^12.23.26",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwind-merge": "^3.4.0"
   }
 }
